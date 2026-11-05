@@ -4,30 +4,33 @@
   Website JavaScript
 */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-  // Mobile navigation
   const menuBtn = document.getElementById("menuBtn");
   const navLinks = document.getElementById("navLinks");
+  const year = document.getElementById("year");
 
+  // Automatically update copyright year
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+
+  // Close mobile navigation
   function closeMenu() {
     if (!menuBtn || !navLinks) return;
 
     navLinks.classList.remove("open");
-
     menuBtn.setAttribute("aria-expanded", "false");
     menuBtn.setAttribute(
       "aria-label",
       "Open navigation menu"
     );
-
-    menuBtn.textContent = "☰";
   }
 
+  // Mobile menu interaction
   if (menuBtn && navLinks) {
 
-    menuBtn.addEventListener("click", () => {
-
+    menuBtn.addEventListener("click", function () {
       const isOpen = navLinks.classList.toggle("open");
 
       menuBtn.setAttribute(
@@ -41,49 +44,37 @@ document.addEventListener("DOMContentLoaded", () => {
           ? "Close navigation menu"
           : "Open navigation menu"
       );
-
-      menuBtn.textContent = isOpen ? "✕" : "☰";
-
     });
 
-    // Close menu after choosing a page section
-    navLinks.querySelectorAll("a").forEach((link) => {
+    // Close after selecting a section
+    navLinks.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
 
-    // Close on Escape
-    document.addEventListener("keydown", (event) => {
+    // Escape closes navigation
+    document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
         closeMenu();
       }
     });
 
-    // Close when clicking outside the menu
-    document.addEventListener("click", (event) => {
+    // Click outside closes navigation
+    document.addEventListener("click", function (event) {
+      const clickedMenu = navLinks.contains(event.target);
+      const clickedButton = menuBtn.contains(event.target);
 
-      const insideMenu = navLinks.contains(event.target);
-      const onButton = menuBtn.contains(event.target);
-
-      if (!insideMenu && !onButton) {
+      if (!clickedMenu && !clickedButton) {
         closeMenu();
       }
-
     });
 
-    // Reset menu when switching to desktop view
-    window.addEventListener("resize", () => {
+    // Reset when returning to desktop
+    window.addEventListener("resize", function () {
       if (window.innerWidth > 900) {
         closeMenu();
       }
     });
 
-  }
-
-  // Automatic copyright year
-  const year = document.getElementById("year");
-
-  if (year) {
-    year.textContent = new Date().getFullYear();
   }
 
 });
