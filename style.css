@@ -1007,3 +1007,124 @@ footer {
     }
 
 }
+
+/* ==========================================
+   SG TESTING - SERVICES & FOOTER UPDATES
+   ========================================== */
+
+/* Service enquiry links */
+
+.service-link {
+    display: inline-flex;
+    margin-top: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #17639b;
+    text-decoration: none;
+}
+
+.service-link:hover {
+    text-decoration: underline;
+}
+
+.featured-card .service-link {
+    color: #ffffff;
+}
+
+
+/* Contact details */
+
+.contact-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px 28px;
+    line-height: 1.7;
+}
+
+.contact-details a {
+    color: inherit;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+
+/* Footer layout */
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr 1fr;
+    gap: 35px;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+}
+
+.footer-contact strong {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.footer-contact a {
+    color: #c7d4e5;
+    font-size: 13px;
+    line-height: 1.7;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.footer-contact a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-note {
+    margin-top: 12px;
+    max-width: 350px;
+}
+
+.footer-bottom {
+    grid-column: 1 / -1;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-contact {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .footer-contact {
+        grid-column: auto;
+    }
+
+    .contact-details {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
