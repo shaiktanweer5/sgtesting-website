@@ -1,42 +1,89 @@
 
-/* SG Testing & Industrial Services
-   Website JavaScript
+/*
+  SG Testing & Industrial Services
+  Website JavaScript
 */
 
-// Mobile navigation
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (menuBtn && navLinks) {
+  // Mobile navigation
+  const menuBtn = document.getElementById("menuBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  function closeMenu() {
+    if (!menuBtn || !navLinks) return;
+
+    navLinks.classList.remove("open");
+
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute(
+      "aria-label",
+      "Open navigation menu"
+    );
+
+    menuBtn.textContent = "☰";
+  }
+
+  if (menuBtn && navLinks) {
+
     menuBtn.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("open");
 
-        menuBtn.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+      menuBtn.setAttribute(
+        "aria-label",
+        isOpen
+          ? "Close navigation menu"
+          : "Open navigation menu"
+      );
+
+      menuBtn.textContent = isOpen ? "✕" : "☰";
+
     });
 
-    // Close mobile menu when a link is clicked
+    // Close menu after choosing a page section
     navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("open");
-            menuBtn.setAttribute("aria-expanded", "false");
-        });
+      link.addEventListener("click", closeMenu);
     });
 
-    // Close mobile menu when Escape is pressed
+    // Close on Escape
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            navLinks.classList.remove("open");
-            menuBtn.setAttribute("aria-expanded", "false");
-        }
+      if (event.key === "Escape") {
+        closeMenu();
+      }
     });
-}
 
-// Update copyright year automatically
-const year = document.getElementById("year");
+    // Close when clicking outside the menu
+    document.addEventListener("click", (event) => {
 
-if (year) {
+      const insideMenu = navLinks.contains(event.target);
+      const onButton = menuBtn.contains(event.target);
+
+      if (!insideMenu && !onButton) {
+        closeMenu();
+      }
+
+    });
+
+    // Reset menu when switching to desktop view
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) {
+        closeMenu();
+      }
+    });
+
+  }
+
+  // Automatic copyright year
+  const year = document.getElementById("year");
+
+  if (year) {
     year.textContent = new Date().getFullYear();
-}
+  }
+
+});
